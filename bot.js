@@ -50,6 +50,8 @@ client.on('ready', () => {
 
 // Client On Message Reaction Add
 client.on('messageReactionAdd', async (reaction, user) => {
+    const member = reaction.message.guild.members.cache.find(member => member.id === user.id);
+
     if (reaction.partial)
     {
         try {
@@ -60,22 +62,18 @@ client.on('messageReactionAdd', async (reaction, user) => {
         }
     }
 
-    if (reaction.message.id === '837068987144601670')
-    {
-        switch (reaction.emoji.name)
-        {
-            default:
-                break;
-            case '🍆':
-                console.log(`Add NSFW role to ${user.id}`);
-                const member = reaction.message.guild.members.cache.find(member => member.id === user.id);
-                member.roles.add('834138391234871326');
-                break;
-        }
+    try {
+        const r = roles.find(e => e[0] === reaction.emoji.name);
+        member.roles.add(r[1]);
+        console.log(`Added role ${r[0]} to ${member.displayName}`);
+    } catch {
+        e => console.error(e)
     }
 });
 
 client.on('messageReactionRemove', async (reaction, user) => {
+    const member = reaction.message.guild.members.cache.find(member => member.id === user.id);
+
     if (reaction.partial)
     {
         try {
@@ -86,18 +84,12 @@ client.on('messageReactionRemove', async (reaction, user) => {
         }
     }
 
-    if (reaction.message.id === '837068987144601670')
-    {
-        switch (reaction.emoji.name)
-        {
-            default:
-                break;
-            case '🍆':
-                console.log(`Remove NSFW role to ${user.id}`);
-                const member = reaction.message.guild.members.cache.find(member => member.id === user.id);
-                member.roles.remove('834138391234871326');
-                break;
-        }
+    try {
+        const r = roles.find(e => e[0] === reaction.emoji.name);
+        member.roles.remove(r[1]);
+        console.log(`Removed role ${r[0]} to ${member.displayName}`);
+    } catch {
+        e => console.error(e)
     }
 });
 
