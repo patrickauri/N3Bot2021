@@ -45,8 +45,7 @@ client.on("ready", () => {
 // Client On Message Reaction Add
 client.on("messageReactionAdd", async (reaction, user) => {
   if (reaction.message.id === "837068987144601670") {
-    //FetchBotData()
-    console.log(reaction.message.id)
+    FetchBotData()
     const member = reaction.message.guild.members.cache.find(
       (member) => member.id === user.id
     )
