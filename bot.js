@@ -28,8 +28,10 @@ const FetchBotData = () => {
       newRoles.pop()
       newRoles.forEach((e) => {
         let newItem = []
-        newItem[0] = e.substr(0, 2)
-        newItem[1] = e.substr(2, e.length)
+        newItem = e.split(" ")
+        //newItem[0] = e.substr(0, 2)
+        //newItem[1] = e.substr(2, e.length)
+
         roles.push(newItem)
       })
     })
@@ -46,6 +48,7 @@ client.on("ready", () => {
 client.on("messageReactionAdd", async (reaction, user) => {
   if (reaction.message.id === "837068987144601670") {
     FetchBotData()
+    //console.log(reaction.emoji)
     const member = reaction.message.guild.members.cache.find(
       (member) => member.id === user.id
     )
