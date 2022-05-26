@@ -44,50 +44,54 @@ client.on("ready", () => {
 
 // Client On Message Reaction Add
 client.on("messageReactionAdd", async (reaction, user) => {
-  //FetchBotData()
-  console.log(reaction.emoji)
-  const member = reaction.message.guild.members.cache.find(
-    (member) => member.id === user.id
-  )
+  if (reaction.message.id === "837068987144601670") {
+    //FetchBotData()
+    console.log(reaction.message.id)
+    const member = reaction.message.guild.members.cache.find(
+      (member) => member.id === user.id
+    )
 
-  if (reaction.partial) {
-    try {
-      await reaction.fetch()
-    } catch (error) {
-      console.error(`Couldn't fetch reaction message (${error})`)
-      return
+    if (reaction.partial) {
+      try {
+        await reaction.fetch()
+      } catch (error) {
+        console.error(`Couldn't fetch reaction message (${error})`)
+        return
+      }
     }
-  }
 
-  try {
-    const r = roles.find((e) => e[0] === reaction.emoji.name)
-    member.roles.add(r[1])
-    console.log(`Added role ${r[1]} to ${member.displayName}`)
-  } catch {
-    ;(e) => console.error(e)
+    try {
+      const r = roles.find((e) => e[0] === reaction.emoji.name)
+      member.roles.add(r[1])
+      console.log(`Added role ${r[1]} to ${member.displayName}`)
+    } catch {
+      ;(e) => console.error(e)
+    }
   }
 })
 
 client.on("messageReactionRemove", async (reaction, user) => {
-  const member = reaction.message.guild.members.cache.find(
-    (member) => member.id === user.id
-  )
+  if (reaction.message.id === "837068987144601670") {
+    const member = reaction.message.guild.members.cache.find(
+      (member) => member.id === user.id
+    )
 
-  if (reaction.partial) {
-    try {
-      await reaction.fetch()
-    } catch (error) {
-      console.error(`Couldn't fetch reaction message (${error})`)
-      return
+    if (reaction.partial) {
+      try {
+        await reaction.fetch()
+      } catch (error) {
+        console.error(`Couldn't fetch reaction message (${error})`)
+        return
+      }
     }
-  }
 
-  try {
-    const r = roles.find((e) => e[0] === reaction.emoji.name)
-    member.roles.remove(r[1])
-    console.log(`Removed role ${r[0]} from ${member.displayName}`)
-  } catch {
-    ;(e) => console.error(e)
+    try {
+      const r = roles.find((e) => e[0] === reaction.emoji.name)
+      member.roles.remove(r[1])
+      console.log(`Removed role ${r[0]} from ${member.displayName}`)
+    } catch {
+      ;(e) => console.error(e)
+    }
   }
 })
 
